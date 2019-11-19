@@ -2,8 +2,7 @@ package ru.avalon.java.j20.labs.tasks;
 
 import ru.avalon.java.j20.labs.Task;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Задание №1
@@ -46,7 +45,7 @@ public class Task1 implements Task {
     /**
      * Выполняет чтение указанного файла в двоичном режиме.
      *
-     * <p>Весь текст файла возвращается в виде одного
+     * <p>Весь текст файла возвраща ется в виде одного
      * экземпляра типа {@link String}.
      *
      * @param file файл
@@ -54,7 +53,21 @@ public class Task1 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private String read(File file) throws IOException {
-        throw new UnsupportedOperationException("Not implement yet!");
+        int content = 0;
+        StringBuilder sb = new StringBuilder();
+
+        try(InputStream fis = new FileInputStream(file)){
+            while ((content = fis.read()) != -1){
+                sb.append(content);
+            }
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+        catch (IOException e){
+            System.out.println("IOexception");
+        }
+        return sb.toString();
     }
 
     /**
@@ -66,6 +79,15 @@ public class Task1 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private void write(File file, String text) throws IOException {
-        throw new UnsupportedOperationException("Not implemented yet!");
+        byte[] b = text.getBytes();
+        try(OutputStream fos = new FileOutputStream(file)){
+            fos.write(b);
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+        catch (IOException e){
+            System.out.println("IOexception");
+        }
     }
 }
