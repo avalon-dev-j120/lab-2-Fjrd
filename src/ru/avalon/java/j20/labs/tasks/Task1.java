@@ -56,9 +56,18 @@ public class Task1 implements Task {
         int content = 0;
         StringBuilder sb = new StringBuilder();
 
-        try(InputStream fis = new FileInputStream(file)){
+        /*try(InputStream fis = new FileInputStream(file)){
             while ((content = fis.read()) != -1){
-                sb.append(content);
+
+                sb.append((char)content);
+                System.out.println((char)content);
+            }
+        }*/
+
+        try(InputStream fis = new FileInputStream(file)){
+            byte[] buffer = new byte[1024];
+            while ((content = fis.read(buffer)) != -1){
+
             }
         }
         catch (FileNotFoundException e){
@@ -85,9 +94,11 @@ public class Task1 implements Task {
         }
         catch (FileNotFoundException e){
             System.out.println("File not found");
+            e.printStackTrace();
         }
         catch (IOException e){
             System.out.println("IOexception");
+            e.printStackTrace();
         }
     }
 }

@@ -2,8 +2,7 @@ package ru.avalon.java.j20.labs.tasks;
 
 import ru.avalon.java.j20.labs.Task;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Задание №2
@@ -54,7 +53,24 @@ public class Task2 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private String read(File file) throws IOException {
-        throw new UnsupportedOperationException("Not implement yet!");
+        StringBuilder sb = new StringBuilder();
+        int content = 0;
+
+        try(Reader fr = new FileReader(file)){
+            while ((content = fr.read()) != -1){
+                sb.append(content);
+            }
+        }
+        catch (FileNotFoundException e ){
+            System.out.println("File not found");
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            System.out.println("IO Exception");
+            e.printStackTrace();
+        }
+
+        return sb.toString();
     }
 
     /**
