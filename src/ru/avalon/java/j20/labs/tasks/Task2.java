@@ -54,11 +54,11 @@ public class Task2 implements Task {
      */
     private String read(File file) throws IOException {
         StringBuilder sb = new StringBuilder();
-        int content = 0;
+        int temp = 0;
 
         try(Reader fr = new FileReader(file)){
-            while ((content = fr.read()) != -1){
-                sb.append(content);
+            while ((temp = fr.read()) != -1){
+                sb.append((char) temp);
             }
         }
         catch (FileNotFoundException e ){
@@ -82,6 +82,16 @@ public class Task2 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private void write(File file, String text) throws IOException {
-        throw new UnsupportedOperationException("Not implemented yet!");
+        try (Writer writer = new FileWriter(file)){
+            writer.write(text);
+        }
+        catch (FileNotFoundException e ){
+            System.out.println("File not found");
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            System.out.println("IO Exception");
+            e.printStackTrace();
+        }
     }
 }

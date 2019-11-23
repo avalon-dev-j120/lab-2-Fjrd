@@ -2,9 +2,10 @@ package ru.avalon.java.j20.labs.tasks;
 
 import ru.avalon.java.j20.labs.Task;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Задание №3
@@ -52,7 +53,34 @@ public class Task3 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private Collection<String> read(File file) throws IOException {
-        throw new UnsupportedOperationException("Not implement yet!");
+        ArrayList<String> arrayList = new ArrayList();
+        try(BufferedReader reader = new BufferedReader(new FileReader(file));
+            ByteArrayOutputStream stream = new ByteArrayOutputStream(1024)){
+            int i = 0;
+            byte[] byteArr = null;
+
+            while ((i = reader.read()) != -1){
+                stream.write((char)i);
+                if ((char) i == '\n' || (char)i == '\r'){
+                    byteArr = stream.toByteArray();
+                    arrayList.add(new String(byteArr, "UTF-8"));
+                    stream.reset();
+                }
+            }
+            arrayList.add(new String(byteArr, "UTF-8"));
+            /*while ((temp = reader.readLine()) != null){
+                arrayList.add(temp);
+            }*/
+        }
+        catch (FileNotFoundException e ){
+            System.out.println("File not found");
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            System.out.println("IO Exception");
+            e.printStackTrace();
+        }
+        return arrayList;
     }
 
     /**
@@ -66,6 +94,19 @@ public class Task3 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private void write(File file, Collection<String> collection) throws IOException {
-        throw new UnsupportedOperationException("Not implemented yet!");
+        try(PrintWriter printWriter = new PrintWriter(new FileWriter(file))){
+            for (String string :
+                    collection) {
+                printWriter.write(new String(string.getBytes(), "UTF-8"));
+            }
+        }
+        catch (FileNotFoundException e ){
+            System.out.println("File not found");
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            System.out.println("IO Exception");
+            e.printStackTrace();
+        }
     }
 }

@@ -53,22 +53,15 @@ public class Task1 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private String read(File file) throws IOException {
-        int content = 0;
-        StringBuilder sb = new StringBuilder();
-
-        /*try(InputStream fis = new FileInputStream(file)){
-            while ((content = fis.read()) != -1){
-
-                sb.append((char)content);
-                System.out.println((char)content);
+        String result = null;
+        byte[] buffer = new byte[1024];
+        try(InputStream fis = new FileInputStream(file);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream(1024)) {
+            int length = 0;
+            while ((length = fis.read(buffer)) != -1){
+                baos.write(buffer, 0, length);
             }
-        }*/
-
-        try(InputStream fis = new FileInputStream(file)){
-            byte[] buffer = new byte[1024];
-            while ((content = fis.read(buffer)) != -1){
-
-            }
+            result = baos.toString();
         }
         catch (FileNotFoundException e){
             System.out.println("File not found");
@@ -76,7 +69,7 @@ public class Task1 implements Task {
         catch (IOException e){
             System.out.println("IOexception");
         }
-        return sb.toString();
+        return result;
     }
 
     /**

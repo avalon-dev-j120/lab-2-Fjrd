@@ -2,7 +2,7 @@ package ru.avalon.java.j20.labs.tasks;
 
 import ru.avalon.java.j20.labs.Task;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -36,6 +36,19 @@ public class Task4 implements Task {
      * @return новый экземпляр типа {@link Properties}
      */
     private Properties read(String path) {
-        throw new UnsupportedOperationException("Not implement yet!");
+        path = new String("src/" + path + ".properties");
+        Properties properties = new Properties();
+        try (Reader reader = new FileReader(path)){
+            properties.load(reader);
+        }
+        catch (FileNotFoundException e ){
+            System.out.println("File not found");
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            System.out.println("IO Exception");
+            e.printStackTrace();
+        }
+        return properties;
     }
 }

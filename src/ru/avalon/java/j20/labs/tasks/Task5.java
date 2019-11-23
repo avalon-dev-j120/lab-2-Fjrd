@@ -2,8 +2,12 @@ package ru.avalon.java.j20.labs.tasks;
 
 import ru.avalon.java.j20.labs.Task;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.Locale;
+import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 /**
@@ -18,6 +22,8 @@ public class Task5 implements Task {
      */
     @Override
     public void run() throws IOException {
+        ResourceBundle resourceBundleLocaleDefault = read("resources.strings.titles");
+        ResourceBundle resourceBundleLocaleRu = read("resources.strings.titles", new Locale("ru"));
         /*
          * TODO(Студент): Выполнить задание №5
          *
@@ -41,7 +47,7 @@ public class Task5 implements Task {
      * @return новый экземпляр типа {@link ResourceBundle}
      */
     private ResourceBundle read(String path) {
-        throw new UnsupportedOperationException("Not implement yet!");
+        return read(path, Locale.getDefault());
     }
 
     /**
@@ -51,6 +57,7 @@ public class Task5 implements Task {
      * @return новый экземпляр типа {@link ResourceBundle}
      */
     private ResourceBundle read(String path, Locale locale) {
-        throw new UnsupportedOperationException("Not implement yet!");
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(path, locale);
+        return  resourceBundle;
     }
 }
