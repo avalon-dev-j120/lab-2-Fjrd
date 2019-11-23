@@ -69,7 +69,6 @@ public class Task2 implements Task {
             System.out.println("IO Exception");
             e.printStackTrace();
         }
-
         return sb.toString();
     }
 

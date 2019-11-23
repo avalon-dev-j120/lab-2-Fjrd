@@ -3,8 +3,9 @@ package ru.avalon.java.j20.labs.tasks;
 import ru.avalon.java.j20.labs.Task;
 import ru.avalon.java.j20.labs.models.Country;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -48,6 +49,25 @@ public class Task6 implements Task {
      * @throws IOException в случае ошибки ввода-вывода.
      */
     private Collection<Country> read(File file) throws IOException {
-        throw new UnsupportedOperationException("Not implement yet!");
+        ArrayList<Country> arrayList = new ArrayList<>();
+        try(BufferedReader br = new BufferedReader(new FileReader(file))){
+            String temp = "";
+            while ((temp = br.readLine()) != null){
+                arrayList.add(Country.valueOf(temp));
+            }
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found");
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            System.out.println("IOexception");
+            e.printStackTrace();
+        }
+        catch (ParseException e) {
+            System.out.println("ParseException");
+            e.printStackTrace();
+        }
+        return arrayList;
     }
 }

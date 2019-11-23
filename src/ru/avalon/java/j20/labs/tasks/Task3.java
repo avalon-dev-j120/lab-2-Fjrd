@@ -58,20 +58,10 @@ public class Task3 implements Task {
         try(BufferedReader reader = new BufferedReader(new FileReader(file));
             ByteArrayOutputStream stream = new ByteArrayOutputStream(1024)){
             int i = 0;
-            /*byte[] byteArr = null;
-            while ((i = reader.read()) != -1){
-                stream.write(i);
-                if ((char) i == '\n' || (char)i == '\r'){
-                    byteArr = stream.toByteArray();
-                    System.out.print(new String(stream.toByteArray(), "UTF-16"));
-                    arrayList.add(new String(byteArr, "UTF-8"));
-                    stream.reset();
-                }
-            }
-            arrayList.add(new String(byteArr, "UTF-8"));*/
             while ((temp = reader.readLine()) != null){
                 arrayList.add(temp + "\n");
             }
+
             //remove '\n' from last element of collection
             arrayList.set(arrayList.size()-1,
                     arrayList.get(arrayList.size()-1).replace("\n", ""));
