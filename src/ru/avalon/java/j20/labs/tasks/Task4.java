@@ -17,7 +17,7 @@ public class Task4 implements Task {
      */
     @Override
     public void run() throws IOException {
-        Properties properties = read("resources/database");
+        Properties properties = read("resources/database.properties");
 
         /*
          * TODO(Студент): Выполнить задание №4
@@ -36,10 +36,11 @@ public class Task4 implements Task {
      * @return новый экземпляр типа {@link Properties}
      */
     private Properties read(String path) {
-        path = new String("src/" + path + ".properties");
         Properties properties = new Properties();
-        try (Reader reader = new FileReader(path)){
-            properties.load(reader);
+
+        try (InputStream in = ClassLoader.getSystemResourceAsStream(path)) {
+            properties.load(in);
+            return properties;
         }
         catch (FileNotFoundException e ){
             System.out.println("File not found");
