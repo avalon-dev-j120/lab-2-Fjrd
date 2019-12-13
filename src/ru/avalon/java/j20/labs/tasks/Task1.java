@@ -2,8 +2,7 @@ package ru.avalon.java.j20.labs.tasks;
 
 import ru.avalon.java.j20.labs.Task;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Задание №1
@@ -46,7 +45,7 @@ public class Task1 implements Task {
     /**
      * Выполняет чтение указанного файла в двоичном режиме.
      *
-     * <p>Весь текст файла возвращается в виде одного
+     * <p>Весь текст файла возвраща ется в виде одного
      * экземпляра типа {@link String}.
      *
      * @param file файл
@@ -54,7 +53,23 @@ public class Task1 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private String read(File file) throws IOException {
-        throw new UnsupportedOperationException("Not implement yet!");
+        String result = null;
+        byte[] buffer = new byte[1024];
+        try(InputStream fis = new FileInputStream(file);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream(1024)) {
+            int length = 0;
+            while ((length = fis.read(buffer)) != -1){
+                baos.write(buffer, 0, length);
+            }
+            result = baos.toString();
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+        catch (IOException e){
+            System.out.println("IOexception");
+        }
+        return result;
     }
 
     /**
@@ -66,6 +81,17 @@ public class Task1 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private void write(File file, String text) throws IOException {
-        throw new UnsupportedOperationException("Not implemented yet!");
+        byte[] b = text.getBytes();
+        try(OutputStream fos = new FileOutputStream(file)){
+            fos.write(b);
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found");
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            System.out.println("IOexception");
+            e.printStackTrace();
+        }
     }
 }
